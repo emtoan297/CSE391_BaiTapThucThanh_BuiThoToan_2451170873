@@ -37,3 +37,31 @@
 @media (max-width: 767px) {
     .portfolio-grid { grid-template-columns: 1fr; }
 }
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+}
+.portfolio-item img {
+    aspect-ratio: 4/3;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.portfolio-item:hover img {
+    transform: scale(1.1); /* Hiệu ứng Zoom */
+}
+.portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1; /* Hiện thông tin dự án */
+}
