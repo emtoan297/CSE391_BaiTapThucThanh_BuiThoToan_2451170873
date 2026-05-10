@@ -30,3 +30,20 @@
     margin-bottom: 1rem;
 }
 
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr; /* Chuyển về 1 cột trên mobile */
+    }
+    
+    .about-image img {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* Git Action:
+   git add session_01_html_css/projects/portfolio_site/css/about.css session_01_html_css/projects/portfolio_site/css/skills.css
+   git commit -m "[REFACTOR] Optimize responsive breakpoints"
+   git push origin main
+*/
+
