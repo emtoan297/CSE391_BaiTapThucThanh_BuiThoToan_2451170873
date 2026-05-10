@@ -1,0 +1,65 @@
+.skills-section {
+    padding: 60px 10%;
+    background-color: #f1f5f9;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: var(--color-dark);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 cột trên desktop */
+    gap: 2rem;
+}
+
+.skill-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px; /* Bo góc card theo ảnh mẫu */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between; /* Đẩy tên sang trái, % sang phải */
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.skill-name {
+    color: var(--color-dark);
+}
+
+.skill-percentage {
+    color: var(--color-primary);
+}
+
+.skill-bar {
+    background: #e2e8f0; /* Màu nền thanh bar */
+    height: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); /* Gradient chuẩn */
+    border-radius: 10px;
+    transition: width 1.5s ease-in-out; /* Animation mượt mà */
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: 1fr; /* 1 cột trên mobile */
+    }
+    
+    .skill-card {
+        padding: 1.5rem;
+    }
+}
+
