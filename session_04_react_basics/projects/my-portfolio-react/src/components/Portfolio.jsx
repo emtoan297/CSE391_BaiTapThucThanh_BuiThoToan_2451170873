@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import { projects } from '../data/projects';
 import ProjectCard from './ProjectCard';
+import styles from './Portfolio.module.css';
 
 function Portfolio() {
-    // State for projects
     const [items] = useState(projects);
 
     return (
@@ -12,16 +12,25 @@ function Portfolio() {
             <div className="container">
                 <h2 className="text-center mb-5">My Portfolio</h2>
 
-                {/* Render list from state */}
-                <div className="portfolio-grid">
+                {/* Filter Buttons */}
+                <div className={styles['filter-container']}>
+                    {categories.map(category => (
+                        <button
+                            key={category}
+                            className={`${styles['filter-btn']} ${filter === category ? styles.active : ''}`}
+                            onClick={() => setFilter(category)}
+                        >
+                            {category.toUpperCase()}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Render filtered items */}
+                <div className={styles['portfolio-grid']}>
                     {items.map(project => (
                         <ProjectCard
                             key={project.id}
-                            title={project.title}
-                            category={project.category}
-                            image={project.image}
-                            description={project.description}
-                            tags={project.tags}
+                            {...project}
                         />
                     ))}
                 </div>
