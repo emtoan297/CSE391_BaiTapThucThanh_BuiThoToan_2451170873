@@ -17,7 +17,6 @@ function Portfolio() {
                     {categories.map(category => (
                         <button
                             key={category}
-                            className={`${styles['filter-btn']} ${filter === category ? styles.active : ''}`}
                             onClick={() => setFilter(category)}
                         >
                             {category.toUpperCase()}
