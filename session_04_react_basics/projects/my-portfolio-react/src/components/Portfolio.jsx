@@ -25,6 +25,7 @@ function Portfolio() {
                     {categories.map(category => (
                         <button
                             key={category}
+                            className={`${styles['filter-btn']} ${filter === category ? styles['active'] : ''}`}
                             onClick={() => setFilter(category)}
                         >
                             {category.toUpperCase()}
@@ -34,7 +35,7 @@ function Portfolio() {
 
                 {/* Render filtered items */}
                 <div className={styles['portfolio-grid']}>
-                    {items.map(project => (
+                    {filteredItems.map(project => (
                         <ProjectCard
                             key={project.id}
                             {...project}
