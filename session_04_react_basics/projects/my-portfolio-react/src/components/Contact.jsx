@@ -1,0 +1,13 @@
+// src/components/Contact.jsx
+import { useState } from 'react';
+import styles from './Portfolio.module.css';
+
+function Contact() {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+    const [status, setStatus] = useState('');
+
+   
