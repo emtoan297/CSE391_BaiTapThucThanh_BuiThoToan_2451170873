@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio — Project Cards</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; max-width: 900px; margin: 2rem auto; background: #f0f2f5; padding: 0 20px; }
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .project-card { border-radius: 12px; overflow: hidden; position: relative;
+                        transition: 0.3s; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+        .project-card img { width: 100%; height: 160px; object-fit: cover; }
+        .project-card .info { padding: 1.2rem; }
+        .project-card h3 { font-size: 1.1rem; margin: 0.5rem 0; color: #1a1a1a; }
+        .category { font-size: 11px; padding: 3px 10px; border-radius: 12px; color: white; display: inline-block; font-weight: bold; text-transform: uppercase; }
+        .cat-web { background: #3498db; }
+        .cat-mobile { background: #27ae60; }
+        .cat-design { background: #9b59b6; }
+        .project-card .desc { font-size: 13.5px; color: #666; line-height: 1.5; margin-bottom: 1rem; }
+        .tags { display: flex; gap: 5px; flex-wrap: wrap; }
+        .tag { font-size: 10px; background: #e9ecef; padding: 2px 8px; border-radius: 4px; color: #495057; }
+        .featured-badge { position: absolute; top: 10px; right: 10px; background: #f1c40f;
+                          color: #000; font-size: 10px; padding: 4px 10px; border-radius: 20px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .empty-state { text-align: center; padding: 4rem; background: white; border-radius: 12px; color: #888; }
+        .stats { margin-top: 2rem; text-align: center; color: #555; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #2c3e50;">🛠️ Kho Lưu Trữ Dự Án</h1>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const projectsData = [
+            { id: 1, title: 'Personal Portfolio', category: 'web',
+              image: 'https://picsum.photos/400/300?random=1',
+              description: 'Website cá nhân giới thiệu kỹ năng và kinh nghiệm.',
+              tags: ['React', 'Vite', 'Tailwind'], featured: true },
+            { id: 2, title: 'E-Commerce App', category: 'web',
+              image: 'https://picsum.photos/400/300?random=2',
+              description: 'Ứng dụng bán hàng trực tuyến tích hợp thanh toán.',
+              tags: ['Next.js', 'Firebase'], featured: true },
+            { id: 3, title: 'Fitness Tracker', category: 'mobile',
+              image: 'https://picsum.photos/400/300?random=3',
+              description: 'Ứng dụng di động theo dõi sức khỏe người dùng.',
+              tags: ['React Native', 'Redux'], featured: false },
+            { id: 4, title: 'Brand Identity', category: 'design',
+              image: 'https://picsum.photos/400/300?random=4',
+              description: 'Thiết kế bộ nhận diện thương hiệu cho startup.',
+              tags: ['Figma', 'Illustrator'], featured: false },
+        ];
+
+        // TODO 1: Component CategoryBadge
+        function CategoryBadge({ category }) {
+            const badgeClass = `category cat-${category}`;
+            return <span className={badgeClass}>{category}</span>;
+        }
+
+        // TODO 2: Component ProjectCard
+        function ProjectCard({ title, category, image, description, tags, featured }) {
+            return (
+                <div className="project-card">
+                    <img src={image} alt={title} />
+                    {/* Conditional Rendering using && operator */}
+                    {featured && <div className="featured-badge">⭐ TIÊU BIỂU</div>}
+                    
+                    <div className="info">
+                        <CategoryBadge category={category} />
+                        <h3>{title}</h3>
+                        <p className="desc">{description}</p>
+                        <div className="tags">
+                            {tags.map((tag, i) => <span key={i} className="tag">#{tag}</span>)}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // TODO 3: Component ProjectList
+        function ProjectList({ projects }) {
+            if (!projects || projects.length === 0) {
+                return <div className="empty-state"><h3>Chưa có dự án nào để hiển thị.</h3></div>;
+            }
+
+            return (
+                <div>
+                    <div className="project-grid">
+                        {projects.map(project => (
+                            <ProjectCard 
+                                key={project.id} 
+                                {...project} 
+                            />
+                        ))}
+                    </div>
+                    <div className="stats">
+                        🚀 Hiện đang hiển thị {projects.length} dự án hoàn thành.
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            // Bạn có thể thử đổi thành mảng rỗng [] để test Empty State
+            const [myProjects] = React.useState(projectsData);
+
+            return (
+                <main>
+                    <ProjectList projects={myProjects} />
+                </main>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
