@@ -18,5 +18,11 @@ function Contact() {
             [name]: value
         }));
     };
-
-   
+const validateForm = () => {
+        // Kiểm tra nếu có bất kỳ trường nào trống hoặc chỉ chứa dấu cách
+        if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+            return false;
+        }
+        return true;
+    };
+    
