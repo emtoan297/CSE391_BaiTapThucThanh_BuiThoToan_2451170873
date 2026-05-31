@@ -6,6 +6,14 @@ import styles from './Portfolio.module.css';
 
 function Portfolio() {
     const [items] = useState(projects);
+    const [filter, setFilter] = useState('all');
+
+    const categories = ['all', 'web', 'mobile', 'design'];
+
+    // Filter logic
+    const filteredItems = filter === 'all'
+        ? items
+        : items.filter(item => item.category === filter);
 
     return (
         <section id="portfolio" className="portfolio-section">
