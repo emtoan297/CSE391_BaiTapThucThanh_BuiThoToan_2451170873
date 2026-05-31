@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo — Vanilla JS</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 500px; 
+            margin: 2rem auto; 
+            background-color: #f4f4f9;
+        }
+        .todo-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            padding: 10px; 
+            border-bottom: 1px solid #eee; 
+            background: white;
+        }
+        .todo-item.done span { 
+            text-decoration: line-through; 
+            color: #999; 
+        }
+        .todo-item button { 
+            margin-left: auto; 
+            background: #e74c3c; 
+            color: white; 
+            border: none; 
+            padding: 6px 10px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        input[type="text"] { padding: 8px; width: 70%; border: 1px solid #ddd; border-radius: 4px; }
+        button.add-btn { padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button.add-btn:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+    <h1>📋 Todo List (Vanilla JS)</h1>
+    <div>
+        <input type="text" id="todoInput" placeholder="Nhập công việc...">
+        <button class="add-btn" onclick="addTodo()">Thêm</button>
+    </div>
+    <div id="todoList"></div>
+
+    <script>
+        let todos = [];
+        const input = document.getElementById('todoInput');
+        const todoListContainer = document.getElementById('todoList');
+
+        // Hàm ngăn chặn XSS (Security Best Practice)
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function renderTodos() {
+            todoListContainer.innerHTML = '';
+            todos.forEach(todo => {
+                const item = document.createElement('div');
+                item.className = `todo-item ${todo.done ? 'done' : ''}`;
+                item.innerHTML = `
+                    <input type="checkbox" ${todo.done ? 'checked' : ''} 
+                           onchange="toggleTodo(${todo.id})">
+                    <span>${escapeHTML(todo.text)}</span>
+                    <button onclick="deleteTodo(${todo.id})">Xóa</button>
+                `;
+                todoListContainer.appendChild(item);
+            });
+        }
+
+        function addTodo() {
+            const text = input.value.trim();
+            if (text !== "") {
+                todos.push({ id: Date.now(), text: text, done: false });
+                input.value = "";
+                renderTodos();
+            }
+        }
+
+        function toggleTodo(id) {
+            todos = todos.map(todo => 
+                todo.id === id ? { ...todo, done: !todo.done } : todo
+            );
+            renderTodos();
+        }
+
+        function deleteTodo(id) {
+            todos = todos.filter(todo => todo.id !== id);
+            renderTodos();
+        }
+
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTodo();
+        });
+    </script>
+</body>
+</html>
