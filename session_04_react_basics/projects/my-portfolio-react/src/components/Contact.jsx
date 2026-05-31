@@ -10,4 +10,13 @@ function Contact() {
     });
     const [status, setStatus] = useState('');
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        // Controlled Component: Cập nhật state khi user gõ phím
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
    
